@@ -1,0 +1,54 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Opción de inicio -->
+    <item
+        android:id="@+id/nav_home"
+        android:title="Inicio" />
+
+    <!-- Productos -->
+    <item
+        android:id="@+id/nav_products"
+        android:title="Productos" />
+
+    <!-- Categorías -->
+    <item
+        android:id="@+id/nav_categories"
+        android:title="Categorías" />
+
+    <!-- Carrito -->
+    <item
+        android:id="@+id/nav_cart"
+        android:title="Carrito" />
+
+    <!-- Contacto -->
+    <item
+        android:id="@+id/nav_contact"
+        android:title="Contacto" />
+
+    <!-- Opciones de usuario -->
+    <group android:checkableBehavior="none">
+        <item
+            android:id="@+id/nav_my_orders"
+            android:title="Mis Órdenes"
+            android:visible="true" /> <!-- Se controla dinámicamente -->
+
+        <item
+            android:id="@+id/nav_logout"
+            android:title="Cerrar sesión"
+            android:visible="true" /> <!-- Se controla dinámicamente -->
+    </group>
+
+    <group android:id="@+id/logged_out_options" android:checkableBehavior="none">
+        <item
+            android:id="@+id/nav_login"
+            android:title="Iniciar sesión"
+            android:visible="true" /> <!-- Se controla dinámicamente -->
+
+        <item
+            android:id="@+id/nav_register"
+            android:title="Registrarse"
+            android:visible="true" /> <!-- Se controla dinámicamente -->
+    </group>
+
+
+</menu>

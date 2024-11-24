@@ -1,0 +1,52 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:background="#FFEBEE"
+    android:gravity="center">
+
+    <!-- Animación o Icono -->
+    <ImageView
+        android:id="@+id/failed_icon"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/ic_failed"
+        android:contentDescription="Error"
+        android:layout_gravity="center"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Título -->
+    <TextView
+        android:id="@+id/tv_failed_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pago cancelado"
+        android:textColor="#B71C1C"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="8dp" />
+
+    <!-- Subtítulo -->
+    <TextView
+        android:id="@+id/tv_failed_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tu pago fue cancelado. Inténtalo nuevamente para completar tu orden."
+        android:textColor="#E53935"
+        android:textSize="16sp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="32dp" />
+
+    <!-- Botón de intentar nuevamente -->
+    <Button
+        android:id="@+id/btn_try_again"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Intentar nuevamente"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#D32F2F"
+        android:paddingHorizontal="24dp"
+        android:paddingVertical="12dp"
+        android:textStyle="bold" />
+</LinearLayout>

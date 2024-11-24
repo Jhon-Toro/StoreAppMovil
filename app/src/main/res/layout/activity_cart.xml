@@ -1,0 +1,49 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="#FFFFFF"> <!-- Fondo blanco -->
+
+    <!-- Título del carrito -->
+    <TextView
+        android:id="@+id/tv_cart_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Carrito de compras"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp"
+        android:layout_gravity="center_horizontal"
+        android:textColor="#000000" /> <!-- Texto en negro para contraste -->
+
+    <!-- Precio total -->
+    <TextView
+        android:id="@+id/total_price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Total: $0.00"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:paddingBottom="16dp"
+        android:textColor="#6D07F2" /> <!-- Color del texto acorde al tema -->
+
+    <!-- Lista de ítems del carrito -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_cart"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingTop="16dp" />
+
+    <!-- Botón de pagar con PayPal -->
+    <Button
+        android:id="@+id/btn_checkout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Pagar con PayPal"
+        android:backgroundTint="#6D07F2"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:elevation="4dp" /> <!-- Botón con fondo color principal y texto blanco -->
+</LinearLayout>

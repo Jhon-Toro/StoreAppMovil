@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "333864998935",
+    "firebase_url": "https://restaurante-608c8-default-rtdb.firebaseio.com",
+    "project_id": "restaurante-608c8",
+    "storage_bucket": "restaurante-608c8.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:333864998935:android:b53b40ee089b21810b6452",
+        "android_client_info": {
+          "package_name": "com.cesde.storeapp_android"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDOsdBBzukkhEf1IINs4tx_kesi7wpbH4E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:333864998935:android:127c46875530d7390b6452",
+        "android_client_info": {
+          "package_name": "com.myapp11"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDOsdBBzukkhEf1IINs4tx_kesi7wpbH4E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
