@@ -4,7 +4,7 @@ plugins {
 
 android {
     namespace = "com.cesde.storeapp_android"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.cesde.storeapp_android"
@@ -42,6 +42,8 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:5.0.0-rc01")
     implementation ("com.squareup.okhttp3:okhttp:4.11.0")
     implementation ("com.squareup.okhttp3:logging-interceptor:4.11.0")
+    implementation(libs.recyclerview)
+    implementation(libs.core)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)

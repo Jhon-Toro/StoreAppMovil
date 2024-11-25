@@ -1,6 +1,5 @@
 package com.cesde.storeapp_android;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -8,10 +7,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.cesde.storeapp_android.adapter.OrderAdapter; // Un adaptador para mostrar órdenes
+import com.cesde.storeapp_android.adapter.OrderAdapter;
 import com.cesde.storeapp_android.api.ApiClient;
 import com.cesde.storeapp_android.api.ApiStore;
 import com.cesde.storeapp_android.model.Order;
+import com.cesde.storeapp_android.utils.SessionManager;
 
 import java.util.List;
 
@@ -23,11 +23,14 @@ public class MyOrdersActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private OrderAdapter adapter;
+    private SessionManager sessionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_orders);
+
+        sessionManager = new SessionManager(this);
 
         recyclerView = findViewById(R.id.rv_orders);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -36,16 +39,16 @@ public class MyOrdersActivity extends AppCompatActivity {
     }
 
     private void fetchUserOrders() {
-        // Obtener el token del SharedPreferences
-        SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
-        String token = sharedPreferences.getString("token", "");
-
-        if (token.isEmpty()) {
-            Toast.makeText(this, "Inicia sesión para ver tus órdenes", Toast.LENGTH_SHORT).show();
+        // Validar si el usuario está logueado
+        if (!sessionManager.isLoggedIn()) {
+            Toast.makeText(this, "Por favor, inicia sesión para ver tus órdenes", Toast.LENGTH_SHORT).show();
+            finish(); // Cierra la actividad si no está logueado
             return;
         }
 
-        ApiStore apiStore = ApiClient.getClient().create(ApiStore.class);
+        String token = sessionManager.getAccessToken();
+
+        ApiStore apiStore = ApiClient.getClient(this).create(ApiStore.class);
         Call<List<Order>> call = apiStore.getUserOrders("Bearer " + token);
 
         call.enqueue(new Callback<List<Order>>() {

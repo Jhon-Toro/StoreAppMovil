@@ -86,7 +86,7 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.OnCar
 
         // Construir la solicitud de orden
         OrderRequest orderRequest = new OrderRequest(cartItems);
-        ApiStore apiService = ApiClient.getClient().create(ApiStore.class);
+        ApiStore apiService = ApiClient.getClient(this).create(ApiStore.class);
         SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
         String token = sharedPreferences.getString("token", "");
 

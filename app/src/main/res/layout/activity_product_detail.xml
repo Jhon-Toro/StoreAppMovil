@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:layout_height="match_parent"
+
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Imagen del producto -->
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:elevation="4dp"> <!-- Añade sombra -->
+
+            <ImageView
+                android:id="@+id/iv_product_image"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:scaleType="centerCrop"
+                android:background="@drawable/image_border"
+                android:clipToOutline="true" /> <!-- Recorta la imagen -->
+        </FrameLayout>
+
+
+        <!-- Título del producto -->
+        <TextView
+            android:id="@+id/tv_product_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Título del Producto"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginTop="16dp" />
+
+        <!-- Precio -->
+        <TextView
+            android:id="@+id/tv_product_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Precio: $20000"
+            android:textSize="18sp"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:textColor="#00FF00" />
+
+        <!-- Botón para agregar al carrito -->
+        <Button
+            android:id="@+id/btn_add_to_cart"
+            android:layout_width="200dp"
+            android:layout_gravity="center"
+            android:layout_height="match_parent"
+            android:text="Añadir al carrito"
+            android:backgroundTint="#6D07F2"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:layout_marginTop="8dp"/>
+
+        <!-- Sección de reseñas -->
+        <TextView
+            android:id="@+id/tv_reviews_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Reseñas de nuestros clientes"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="8dp" />
+
+        <!-- RecyclerView para reseñas -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_reviews"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:nestedScrollingEnabled="false" />
+
+        <!-- Formulario para añadir reseñas -->
+        <TextView
+            android:id="@+id/tv_add_review"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Añadir una reseña"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="8dp" />
+
+        <RatingBar
+            android:id="@+id/rb_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:backgroundTint="#6D07F2"
+            android:numStars="5"
+            android:stepSize="0.5" />
+
+        <EditText
+            android:id="@+id/et_review_comment"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:hint="Comentario"
+            android:textColorHint="@color/black"
+            android:gravity="top"
+            android:background="@android:drawable/editbox_background"
+            android:layout_marginTop="8dp" />
+
+        <Button
+            android:id="@+id/btn_submit_review"
+            android:layout_width="100dp"
+            android:layout_gravity="center"
+            android:layout_height="match_parent"
+            android:text="Enviar"
+            android:backgroundTint="#6D07F2"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:layout_marginTop="8dp"/>
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

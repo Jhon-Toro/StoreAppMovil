@@ -32,18 +32,14 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        // Inicializar vistas
         etUsername = findViewById(R.id.et_username);
         etEmail = findViewById(R.id.et_email);
         etPassword = findViewById(R.id.et_password);
         etConfirmPassword = findViewById(R.id.et_confirm_password);
         btnRegister = findViewById(R.id.btn_register);
-
-        // Configurar visibilidad de contraseñas
         setupTogglePasswordVisibility(etPassword, true);
         setupTogglePasswordVisibility(etConfirmPassword, false);
 
-        // Configurar acción del botón de registro
         btnRegister.setOnClickListener(v -> registerUser());
     }
 
@@ -81,7 +77,6 @@ public class RegisterActivity extends AppCompatActivity {
         String password = etPassword.getText().toString().trim();
         String confirmPassword = etConfirmPassword.getText().toString().trim();
 
-        // Validaciones
         if (username.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
             Toast.makeText(this, "Por favor, completa todos los campos", Toast.LENGTH_SHORT).show();
             return;
@@ -92,11 +87,8 @@ public class RegisterActivity extends AppCompatActivity {
             return;
         }
 
-        // Crear objeto de solicitud de registro
         RegisterRequest registerRequest = new RegisterRequest(username, email, password);
-
-        // Realizar la llamada a la API
-        ApiStore apiService = ApiClient.getClient().create(ApiStore.class);
+        ApiStore apiService = ApiClient.getClient(this).create(ApiStore.class);
         Call<RegisterResponse> call = apiService.registerUser(registerRequest);
 
         call.enqueue(new Callback<RegisterResponse>() {
@@ -105,7 +97,6 @@ public class RegisterActivity extends AppCompatActivity {
                 if (response.isSuccessful() && response.body() != null) {
                     Toast.makeText(RegisterActivity.this, "Usuario registrado con éxito", Toast.LENGTH_SHORT).show();
 
-                    // Redirigir al LoginActivity
                     Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                     startActivity(intent);
                     finish();

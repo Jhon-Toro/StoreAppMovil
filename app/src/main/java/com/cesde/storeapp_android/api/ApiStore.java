@@ -8,14 +8,17 @@ import com.cesde.storeapp_android.model.OrderResponse;
 import com.cesde.storeapp_android.model.Product;
 import com.cesde.storeapp_android.model.RegisterRequest;
 import com.cesde.storeapp_android.model.RegisterResponse;
+import com.cesde.storeapp_android.model.Review;
 
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ApiStore {
@@ -37,4 +40,11 @@ public interface ApiStore {
 
     @GET("/orders/my_orders")
     Call<List<Order>> getUserOrders(@Header("Authorization") String token);
+
+    @GET("products/{id}")
+    Call<Product> getProductById(@Path("id") int productId);
+
+    @POST("reviews/")
+    Call<Review> submitReview(@Header("Authorization") String token, @Body Map<String, Object> reviewData);
+
 }

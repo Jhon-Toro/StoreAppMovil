@@ -177,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void showProducts() {
-        Call<List<Product>> call = ApiClient.getClient().create(ApiStore.class).getProducts();
+        Call<List<Product>> call = ApiClient.getClient(this).create(ApiStore.class).getProducts();
         call.enqueue(new Callback<List<Product>>() {
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {

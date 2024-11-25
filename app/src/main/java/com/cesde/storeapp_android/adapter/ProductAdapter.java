@@ -1,6 +1,7 @@
 package com.cesde.storeapp_android.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.cesde.storeapp_android.MainActivity;
+import com.cesde.storeapp_android.ProductDetailActivity;
 import com.cesde.storeapp_android.R;
 import com.cesde.storeapp_android.model.CartItem;
 import com.cesde.storeapp_android.model.Product;
@@ -78,6 +80,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         return new ViewHolder(view);
     }
 
+    @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Product product = productList.get(position);
 
@@ -89,6 +92,13 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         Glide.with(holder.productImage.getContext())
                 .load(product.getImages().get(0))
                 .into(holder.productImage);
+
+        // Abrir los detalles del producto al hacer clic en la imagen
+        holder.productImage.setOnClickListener(v -> {
+            Intent intent = new Intent(context, ProductDetailActivity.class);
+            intent.putExtra("PRODUCT_ID", product.getId());
+            context.startActivity(intent);
+        });
 
         // Agregar al carrito
         holder.addToCartButton.setOnClickListener(v -> {
@@ -104,6 +114,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             onCartUpdated.run();
         });
     }
+
 
 
     @Override

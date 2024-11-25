@@ -70,7 +70,7 @@ public class LoginActivity extends AppCompatActivity {
 
         LoginRequest loginRequest = new LoginRequest(email, password);
 
-        ApiStore apiService = ApiClient.getClient().create(ApiStore.class);
+        ApiStore apiService = ApiClient.getClient(this).create(ApiStore.class);
         Call<AuthResponse> call = apiService.loginUser(loginRequest);
 
         call.enqueue(new Callback<AuthResponse>() {
@@ -80,7 +80,7 @@ public class LoginActivity extends AppCompatActivity {
                     String token = response.body().getAccessToken();
                     String username = response.body().getUser().getUsername();
 
-                    // Usar SessionManager para guardar la sesión
+                    // Siempre sobrescribe la sesión anterior
                     SessionManager sessionManager = new SessionManager(LoginActivity.this);
                     sessionManager.saveUserSession(token, username);
 
@@ -101,6 +101,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+
 
 //    private void saveUserSession(String token, boolean isAdmin) {
 //        SharedPreferences.Editor editor = sharedPreferences.edit();

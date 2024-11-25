@@ -24,9 +24,12 @@ public class SessionManager {
      * @param username    Nombre del usuario.
      */
     public void saveUserSession(String accessToken, String username) {
+        // Limpiar datos anteriores
+        logout();
+        // Guardar nuevos datos
         editor.putString(KEY_ACCESS_TOKEN, accessToken);
         editor.putString(KEY_USERNAME, username);
-        editor.putBoolean(KEY_IS_LOGGED_IN, true); // Cambia el estado a logueado
+        editor.putBoolean(KEY_IS_LOGGED_IN, true);
         editor.apply();
     }
 
