@@ -6,6 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,13 +39,14 @@ public class MainActivity extends AppCompatActivity {
     private CartManager cartManager;
     private TextView cartBadge;
     private ImageView cartIcon;
-    private DrawerLayout drawerLayout; // Para manejar el Drawer
-    private ActionBarDrawerToggle drawerToggle; // Botón para abrir/cerrar el Drawer
-    private RecyclerView recyclerView; // RecyclerView para mostrar productos
-    private ProductAdapter adapter; // Adaptador para los productos
-    private List<Product> productList = new ArrayList<>(); // Lista de productos
-    private NavigationView navigationView; // NavigationView para el menú del Drawer
-    private SessionManager sessionManager; // Manejo de la sesión
+    private ProgressBar progressBar; // Loader
+    private DrawerLayout drawerLayout;
+    private ActionBarDrawerToggle drawerToggle;
+    private RecyclerView recyclerView;
+    private ProductAdapter adapter;
+    private List<Product> productList = new ArrayList<>();
+    private NavigationView navigationView;
+    private SessionManager sessionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +56,9 @@ public class MainActivity extends AppCompatActivity {
 
         // Inicializar el SessionManager primero
         sessionManager = new SessionManager(this);
+
+        // Inicializar ProgressBar
+        progressBar = findViewById(R.id.progress_loader);
 
         // Configuración de NavigationView
         navigationView = findViewById(R.id.navigation_view);
@@ -88,12 +93,17 @@ public class MainActivity extends AppCompatActivity {
         showProducts();
     }
 
-
     @Override
     protected void onResume() {
         super.onResume();
-        updateCartBadge(); // Actualizar el contador del carrito al reingresar a la pantalla principal
+
+        updateCartBadge();
+
+        if (cartManager.getCartItems().isEmpty()) {
+            adapter.updateProductList(new ArrayList<>()); // Si es necesario actualizar los productos
+        }
     }
+
 
     private void updateCartBadge() {
         int cartItemCount = cartManager.getCartItems().size();
@@ -144,52 +154,66 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-            Toast.makeText(this, "Inicio seleccionado", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(this, MainActivity.class));
+            finish();
         } else if (id == R.id.nav_products) {
-            Toast.makeText(this, "Productos seleccionados", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(this, MainActivity.class));
+            finish();
         } else if (id == R.id.nav_categories) {
-            Toast.makeText(this, "Categorías seleccionadas", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(this, CategoriesActivity.class));
+            finish();
         } else if (id == R.id.nav_cart) {
             startActivity(new Intent(this, CartActivity.class));
-        } else if (id == R.id.nav_my_orders) { // Manejar "Mis Órdenes"
+        } else if (id == R.id.nav_my_orders) {
             startActivity(new Intent(this, MyOrdersActivity.class));
         } else if (id == R.id.nav_logout) {
-            sessionManager.logout(); // Cierra sesión
+            sessionManager.logout();
             Toast.makeText(this, "Sesión cerrada", Toast.LENGTH_SHORT).show();
-            updateMenuOptions(); // Actualiza el menú después de cerrar sesión
+            updateMenuOptions();
         } else if (id == R.id.nav_login) {
             startActivity(new Intent(this, LoginActivity.class));
             finish();
-            // Llama a updateMenuOptions() después de iniciar sesión
-            updateMenuOptions();
         } else if (id == R.id.nav_register) {
             startActivity(new Intent(this, RegisterActivity.class));
             finish();
-            updateMenuOptions();
         } else {
             Toast.makeText(this, "Opción no reconocida", Toast.LENGTH_SHORT).show();
         }
 
-        drawerLayout.closeDrawers(); // Cerrar el Drawer después de seleccionar una opción
+        drawerLayout.closeDrawers();
         return true;
     }
 
-
-
     private void showProducts() {
-        Call<List<Product>> call = ApiClient.getClient(this).create(ApiStore.class).getProducts();
+        // Mostrar el loader antes de cargar los productos
+        progressBar.setVisibility(View.VISIBLE);
+        recyclerView.setVisibility(View.GONE);
+
+        ApiStore apiStore = ApiClient.getClient(this).create(ApiStore.class);
+        Call<List<Product>> call = apiStore.getProducts();
+
         call.enqueue(new Callback<List<Product>>() {
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
+                // Ocultar el loader después de la carga
+                progressBar.setVisibility(View.GONE);
+                recyclerView.setVisibility(View.VISIBLE);
+
                 if (response.isSuccessful() && response.body() != null) {
                     productList = response.body();
                     adapter.updateProductList(productList);
+                } else {
+                    Toast.makeText(MainActivity.this, "Error al cargar productos", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<List<Product>> call, Throwable throwable) {
-                Toast.makeText(MainActivity.this, "Error de conexión: " + throwable.getMessage(), Toast.LENGTH_SHORT).show();
+            public void onFailure(Call<List<Product>> call, Throwable t) {
+                // Ocultar el loader incluso si falla
+                progressBar.setVisibility(View.GONE);
+                recyclerView.setVisibility(View.VISIBLE);
+
+                Toast.makeText(MainActivity.this, "Error de conexión", Toast.LENGTH_SHORT).show();
             }
         });
     }

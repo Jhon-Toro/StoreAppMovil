@@ -55,8 +55,14 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.OnCar
     @Override
     protected void onResume() {
         super.onResume();
+
         adapter.notifyDataSetChanged();
         calculateTotalPrice();
+
+        if (cartManager.getCartItems().isEmpty()) {
+            Toast.makeText(this, "El carrito está vacío", Toast.LENGTH_SHORT).show();
+            finish();
+        }
     }
 
     @Override

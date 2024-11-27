@@ -1,6 +1,7 @@
 package com.cesde.storeapp_android.api;
 
 import com.cesde.storeapp_android.model.AuthResponse;
+import com.cesde.storeapp_android.model.Category;
 import com.cesde.storeapp_android.model.LoginRequest;
 import com.cesde.storeapp_android.model.Order;
 import com.cesde.storeapp_android.model.OrderRequest;
@@ -43,6 +44,12 @@ public interface ApiStore {
 
     @GET("products/{id}")
     Call<Product> getProductById(@Path("id") int productId);
+
+    @GET("categories/")
+    Call<List<Category>> getCategories();
+
+    @GET("categories/{categoryId}/products")
+    Call<List<Product>> getProductsByCategory(@Path("categoryId") int categoryId);
 
     @POST("reviews/")
     Call<Review> submitReview(@Header("Authorization") String token, @Body Map<String, Object> reviewData);

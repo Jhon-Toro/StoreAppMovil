@@ -27,6 +27,7 @@
         <activity android:name=".CartActivity" />
         <activity android:name=".MyOrdersActivity" />
         <activity android:name=".ProductDetailActivity" />
+        <activity android:name=".CategoriesActivity" />
         <activity android:name=".OrderResultActivity"
             android:exported="true">
             <intent-filter>

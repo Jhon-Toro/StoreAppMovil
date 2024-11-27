@@ -1,54 +1,68 @@
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp"
     android:background="#F5F5F5">
 
-    <!-- Título -->
-    <TextView
-        android:id="@+id/tv_title"
+    <!-- Loader (ProgressBar) centrado -->
+    <ProgressBar
+        android:id="@+id/progress_loader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Mis Órdenes"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="16dp"
-        android:textColor="#000000" />
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
 
-    <!-- Mensaje vacío (en caso de no haber órdenes) -->
-    <TextView
-        android:id="@+id/tv_empty_orders"
+    <!-- Contenido principal -->
+    <LinearLayout
+        android:id="@+id/main_content"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="No tienes órdenes disponibles."
-        android:textSize="16sp"
-        android:gravity="center"
-        android:visibility="gone"
-        android:textColor="#666666"
-        android:padding="8dp" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
 
-    <!-- Lista de Órdenes -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_orders"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:clipToPadding="false"
-        android:padding="8dp" />
+        <!-- Título -->
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mis Órdenes"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="16dp"
+            android:textColor="#000000" />
 
-    <!-- Botón para ir a la tienda -->
-    <Button
-        android:id="@+id/btn_go_to_shop"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Ir a la tienda"
-        android:visibility="gone"
-        android:backgroundTint="#6200EE"
-        android:textColor="#FFFFFF"
-        android:padding="12dp"
-        android:layout_marginTop="16dp"
-        android:textStyle="bold" />
+        <!-- Mensaje vacío (en caso de no haber órdenes) -->
+        <TextView
+            android:id="@+id/tv_empty_orders"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="No tienes órdenes disponibles."
+            android:textSize="16sp"
+            android:gravity="center"
+            android:visibility="gone"
+            android:textColor="#666666"
+            android:padding="8dp" />
 
-</LinearLayout>
+        <!-- Lista de Órdenes -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_orders"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:clipToPadding="false"
+            android:padding="8dp" />
+
+        <!-- Botón para ir a la tienda -->
+        <Button
+            android:id="@+id/btn_go_to_shop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ir a la tienda"
+            android:visibility="gone"
+            android:backgroundTint="#6200EE"
+            android:textColor="#FFFFFF"
+            android:padding="12dp"
+            android:layout_marginTop="16dp"
+            android:textStyle="bold" />
+    </LinearLayout>
+</RelativeLayout>

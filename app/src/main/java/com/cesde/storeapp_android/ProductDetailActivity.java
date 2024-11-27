@@ -1,9 +1,12 @@
 package com.cesde.storeapp_android;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,6 +33,8 @@ import retrofit2.Response;
 
 public class ProductDetailActivity extends AppCompatActivity {
 
+    private ProgressBar progressBar; // Loader
+    private LinearLayout mainContent; // Contenedor principal
     private ImageView ivProductImage;
     private TextView tvProductTitle, tvProductPrice;
     private RecyclerView rvReviews;
@@ -46,6 +51,8 @@ public class ProductDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_product_detail);
 
         // Inicializar vistas
+        progressBar = findViewById(R.id.progress_loader);
+        mainContent = findViewById(R.id.main_content);
         ivProductImage = findViewById(R.id.iv_product_image);
         tvProductTitle = findViewById(R.id.tv_product_title);
         tvProductPrice = findViewById(R.id.tv_product_price);
@@ -74,12 +81,20 @@ public class ProductDetailActivity extends AppCompatActivity {
     }
 
     private void fetchProductDetails(int productId) {
+        // Mostrar el loader antes de iniciar la tarea
+        progressBar.setVisibility(View.VISIBLE);
+        mainContent.setVisibility(View.GONE);
+
         ApiStore apiStore = ApiClient.getClient(this).create(ApiStore.class);
         Call<Product> call = apiStore.getProductById(productId);
 
         call.enqueue(new Callback<Product>() {
             @Override
             public void onResponse(Call<Product> call, Response<Product> response) {
+                // Ocultar el loader al finalizar la tarea
+                progressBar.setVisibility(View.GONE);
+                mainContent.setVisibility(View.VISIBLE);
+
                 if (response.isSuccessful() && response.body() != null) {
                     Product product = response.body();
 
@@ -102,11 +117,14 @@ public class ProductDetailActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Product> call, Throwable t) {
+                // Ocultar el loader incluso si ocurre un error
+                progressBar.setVisibility(View.GONE);
+                mainContent.setVisibility(View.VISIBLE);
+
                 Toast.makeText(ProductDetailActivity.this, "Error de conexión", Toast.LENGTH_SHORT).show();
             }
         });
     }
-
 
     private void submitReview() {
         String comment = etReviewComment.getText().toString().trim();

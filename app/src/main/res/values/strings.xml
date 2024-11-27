@@ -2,4 +2,5 @@
     <string name="app_name">StoreApp-Android</string>
     <string name="navigation_drawer_open">Abrir menú</string>
     <string name="navigation_drawer_close">Cerrar menú</string>
+    <string name="category_image_desc">Imagen de la categoría</string>
 </resources>

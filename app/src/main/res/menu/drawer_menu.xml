@@ -20,10 +20,10 @@
         android:id="@+id/nav_cart"
         android:title="Carrito" />
 
-    <!-- Contacto -->
+    <!-- Contacto
     <item
         android:id="@+id/nav_contact"
-        android:title="Contacto" />
+        android:title="Contacto" />-->
 
     <!-- Opciones de usuario -->
     <group android:checkableBehavior="none">

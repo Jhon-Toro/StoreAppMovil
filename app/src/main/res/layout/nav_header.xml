@@ -34,7 +34,7 @@
         android:id="@+id/nav_header_subtitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="David Toro"
+        android:text="CESDE"
         android:textColor="@android:color/white"
         android:textSize="14sp" />
 </LinearLayout>
